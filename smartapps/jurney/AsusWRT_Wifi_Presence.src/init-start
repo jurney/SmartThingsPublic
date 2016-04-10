@@ -1,0 +1,2 @@
+#!/bin/sh
+cru a CheckIfHome "* * * * * /jffs/scripts/CheckIfHome"

@@ -1,0 +1,56 @@
+#!/bin/sh
+
+Chris=Away
+Carrie=Away
+
+macadresser=`wl -i eth1 assoclist`
+antal=0
+antal=`qcsapi_sockrpc get_count_assoc wifi0`
+
+while [ $antal -gt 0 ]
+do
+  antal=`expr $antal - 1`
+  macadresser="`qcsapi_sockrpc get_station_mac_addr wifi0 $antal`;$macadresser"
+done
+
+case "$macadresser" in
+ *FC:DB:B3:18:4B:56*)
+ Chris=Home
+ ;;
+esac
+
+case "$macadresser" in
+ *XX:XX:XX:XX:XX:XX*)
+ Carrie=Home
+ ;;
+esac
+
+if [ "$Chris" = Home ]
+then
+ if [ ! -f /jffs/scripts/CheckUser/ChrisHome ]
+ then
+  touch /jffs/scripts/CheckUser/ChrisHome
+  curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/7d46bbb7-a9ff-42d3-8285-80cda683dc96/Phone/home?access_token=5c44f70b-07bb-4165-a9c3-db7fd0f63647" -k
+ fi
+else
+ if [ -f /jffs/scripts/CheckUser/ChrisHome ]
+ then
+  rm -f /jffs/scripts/CheckUser/ChrisHome
+  curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/7d46bbb7-a9ff-42d3-8285-80cda683dc96/Phone/away?access_token=5c44f70b-07bb-4165-a9c3-db7fd0f63647" -k
+  fi
+fi
+
+if [ "$Carrie" = Home ]
+then
+ if [ ! -f /jffs/scripts/CheckUser/CarrieHome ]
+ then
+  touch /jffs/scripts/CheckUser/CarrieHome
+  curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/2a93597f-9de1-47cc-8ebe-007ecbd402b2/Phone/home?access_token=d8bf786b-417b-4829-8268-f377f880a26a" -k
+ fi
+else
+ if [ -f /jffs/scripts/CheckUser/CarrieHome ]
+ then
+  rm -f /jffs/scripts/CheckUser/CarrieHome
+  curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/2a93597f-9de1-47cc-8ebe-007ecbd402b2/Phone/away?access_token=d8bf786b-417b-4829-8268-f377f880a26a" -k
+ fi
+fi
