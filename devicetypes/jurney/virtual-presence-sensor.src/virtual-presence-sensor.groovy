@@ -1,5 +1,5 @@
 /**
- *  Copyright 2014 SmartThings
+ *  Copyright 2016 Stuart Buchanan
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
@@ -10,12 +10,14 @@
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
  *
+ *	Based on original Simulated Presence code by Bob & Smartthings, but this can be used in Rule Machine
  */
 metadata {
 	// Automatically generated. Make future change here.
-	definition (name: "Simulated Presence Sensor", namespace: "smartthings/testing", author: "bob") {
+	definition (name: "Virtual Presence Sensor", namespace: "jurney", author: "Stuart Buchanan") {
 		capability "Presence Sensor"
-
+		capability "Actuator"
+		capability "Sensor"
 		command "arrived"
 		command "departed"
 	}
@@ -27,8 +29,8 @@ metadata {
 
 	tiles {
 		standardTile("presence", "device.presence", width: 2, height: 2, canChangeBackground: true) {
-			state("not present", label:'not present', icon:"st.presence.tile.not-present", backgroundColor:"#ffffff", action:"arrived")
-			state("present", label:'present', icon:"st.presence.tile.present", backgroundColor:"#53a7c0", action:"departed")
+			state("not present", label:'not present', icon:"st.presence.tile.mobile-not-present", backgroundColor:"#ffffff", action:"arrived")
+			state("present", label:'present', icon:"st.presence.tile.mobile-present", backgroundColor:"#53a7c0", action:"departed")
 		}
 		main "presence"
 		details "presence"
@@ -48,6 +50,6 @@ def arrived() {
 
 
 def departed() {
-	log.trace "Executing 'arrived'"
+	log.trace "Executing 'departed'"
 	sendEvent(name: "presence", value: "not present")
 }
