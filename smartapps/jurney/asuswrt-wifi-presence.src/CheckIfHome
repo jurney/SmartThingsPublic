@@ -19,13 +19,13 @@ esac
 
 if [ "$Chris" = Home ]
 then
- if [ ! -f /jffs/scripts/CheckUser/ChrisHome ]
+ if [ ! -f /jffs/scripts/CheckUser/ChrisHome ] || [ "$1" = "-f" ]
  then
   touch /jffs/scripts/CheckUser/ChrisHome
   curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/7d46bbb7-a9ff-42d3-8285-80cda683dc96/Phone/home?access_token=5c44f70b-07bb-4165-a9c3-db7fd0f63647" -k
  fi
 else
- if [ -f /jffs/scripts/CheckUser/ChrisHome ]
+ if [ -f /jffs/scripts/CheckUser/ChrisHome ] || [ "$1" = "-f" ]
  then
   rm -f /jffs/scripts/CheckUser/ChrisHome
   curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/7d46bbb7-a9ff-42d3-8285-80cda683dc96/Phone/away?access_token=5c44f70b-07bb-4165-a9c3-db7fd0f63647" -k
@@ -34,13 +34,13 @@ fi
 
 if [ "$Carrie" = Home ]
 then
- if [ ! -f /jffs/scripts/CheckUser/CarrieHome ]
+ if [ ! -f /jffs/scripts/CheckUser/CarrieHome ] || [ "$1" = "-f" ]
  then
   touch /jffs/scripts/CheckUser/CarrieHome
   curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/2a93597f-9de1-47cc-8ebe-007ecbd402b2/Phone/home?access_token=d8bf786b-417b-4829-8268-f377f880a26a" -k
  fi
 else
- if [ -f /jffs/scripts/CheckUser/CarrieHome ]
+ if [ -f /jffs/scripts/CheckUser/CarrieHome ] || [ "$1" = "-f" ]
  then
   rm -f /jffs/scripts/CheckUser/CarrieHome
   curl "https://graph-na02-useast1.api.smartthings.com/api/smartapps/installations/2a93597f-9de1-47cc-8ebe-007ecbd402b2/Phone/away?access_token=d8bf786b-417b-4829-8268-f377f880a26a" -k
