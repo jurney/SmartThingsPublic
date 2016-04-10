@@ -3,15 +3,7 @@
 Chris=Away
 Carrie=Away
 
-macadresser=`wl -i eth1 assoclist`
-antal=0
-antal=`qcsapi_sockrpc get_count_assoc wifi0`
-
-while [ $antal -gt 0 ]
-do
-  antal=`expr $antal - 1`
-  macadresser="`qcsapi_sockrpc get_station_mac_addr wifi0 $antal`;$macadresser"
-done
+macadresser="`wl -i eth1 assoclist` `wl -i eth2 assoclist`"
 
 case "$macadresser" in
  *FC:DB:B3:18:4B:56*)
